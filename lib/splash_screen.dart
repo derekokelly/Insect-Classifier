@@ -17,12 +17,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future checkSetupComplete() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool _seen = (prefs.getBool('seen') ?? false);
+    bool _setupComplete = (prefs.getBool('setupComplete') ?? false);
 
-    if (_seen) {
+    if (_setupComplete) {
       Navigator.pushReplacementNamed(context, "/home");
     } else {
-      prefs.setBool('seen', true);
       Navigator.pushReplacementNamed(context, "/setup");
     }
   }
@@ -41,51 +40,49 @@ class _SplashScreenState extends State<SplashScreen> {
               color: Colors.black54,
               colorBlendMode: BlendMode.darken,
             ),
-            // TODO: take out expanded
             Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 30,
-                          child: Icon(
-                            Icons.search,
-                            color: Colors.black,
-                            size: 50,
-                          ),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 30,
+                        child: Icon(
+                          Icons.search,
+                          color: Colors.black,
+                          size: 50,
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10),
+                      ),
+                      SizedBox(width: 10,),
+                      Text(
+                        "Insect Image Classifier",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 24,
                         ),
-                        SizedBox(width: 10,),
-                        Text(
-                          "Insect Image Classifier",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 24,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        // TODO: change to slogan
-                        Text("data", style: TextStyle(color: Colors.white))
-                      ],
-                    ),
+                SizedBox(height: 50,),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        // TODO: put slogan here
+                        "Slogan to go here",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 24,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
