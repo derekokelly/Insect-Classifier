@@ -29,9 +29,12 @@ class _HomePageState extends State<HomePage> {
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.collections), title: Text('My Pictures')),
-          BottomNavigationBarItem(icon: Icon(Icons.photo_camera), title: Text('Camera')),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), title: Text('Settings')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.collections), title: Text('My Pictures')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.photo_camera), title: Text('Camera')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), title: Text('Settings')),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
@@ -50,7 +53,6 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     super.dispose();
   }
-
 }
 
 class CameraPage extends StatefulWidget {
@@ -79,37 +81,61 @@ class _CameraPageState extends State<CameraPage> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          child: AspectRatio(
-            aspectRatio: cameraController.value.aspectRatio,
-            child: CameraPreview(
-              cameraController,
-            ),
-          ),
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            SizedBox(
-              width: double.infinity,
-              child: RaisedButton(
-                padding: EdgeInsets.symmetric(vertical: 35),
-                splashColor: Colors.grey,
-                onPressed: () => print("pressed button"),
-                child: Icon(
-                  Icons.camera_alt,
-                  size: 50,
+    if (!cameraController.value.isInitialized) {
+      return Stack(
+        children: <Widget>[
+          Container(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              SizedBox(
+                width: double.infinity,
+                child: RaisedButton(
+                  padding: EdgeInsets.symmetric(vertical: 35),
+                  splashColor: Colors.grey,
+                  onPressed: () => print("pressed button"),
+                  child: Icon(
+                    Icons.camera_alt,
+                    size: 50,
+                  ),
                 ),
               ),
+            ],
+          ),
+        ],
+      );
+    } else {
+      return Stack(
+        children: <Widget>[
+          Container(
+            child: AspectRatio(
+              aspectRatio: cameraController.value.aspectRatio,
+              child: CameraPreview(
+                cameraController,
+              ),
             ),
-          ],
-        ),
-      ],
-    );
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              SizedBox(
+                width: double.infinity,
+                child: RaisedButton(
+                  padding: EdgeInsets.symmetric(vertical: 35),
+                  splashColor: Colors.grey,
+                  onPressed: () => print("pressed button"),
+                  child: Icon(
+                    Icons.camera_alt,
+                    size: 50,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      );
+    }
   }
 }
