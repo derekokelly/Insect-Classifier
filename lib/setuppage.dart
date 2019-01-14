@@ -49,6 +49,12 @@ class _SetupPageState extends State<SetupPage> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+  
 }
 
 class FancyButton extends StatelessWidget {
