@@ -55,6 +55,13 @@ class _CameraPageState extends State<CameraPage> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
+        Container(
+          color: Colors.red,
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Container(),
+          ),
+        ),
         Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
