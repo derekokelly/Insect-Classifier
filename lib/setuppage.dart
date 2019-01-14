@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SetupPage extends StatefulWidget {
   SetupPage({Key key, this.title}) : super(key: key);
@@ -29,12 +30,23 @@ class _SetupPageState extends State<SetupPage> {
     _controller.nextPage(duration: kTabScrollDuration, curve: Curves.ease);
   }
 
+  Future checkPage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // TODO: check if setup process is complete
+    if (_controller.page == FINAL_PAGE_NUM) {
+      prefs.setBool('setupComplete', true);
+      Navigator.pushReplacementNamed(context, "/home");
+    } else {
+      nextPage();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _buildPageView(),
       floatingActionButton: FancyButton(
-        onPressed: () => _controller.page == FINAL_PAGE_NUM ? Navigator.pushReplacementNamed(context, "/home") : nextPage(),
+        onPressed: () => checkPage(),
       ),
     );
   }
