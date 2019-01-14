@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -14,17 +15,16 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(Duration(seconds: 2), () => checkSetupComplete());
   }
 
-  bool checkSetupComplete() {
-    // TODO: pass this to setup page
-    // for proper check
-   bool setupDone = false;
+  Future checkSetupComplete() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool _seen = (prefs.getBool('seen') ?? false);
 
-    if (setupDone) {
+    if (_seen) {
       Navigator.pushReplacementNamed(context, "/home");
     } else {
+      prefs.setBool('seen', true);
       Navigator.pushReplacementNamed(context, "/setup");
     }
-    return false;
   }
 
   @override
