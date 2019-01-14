@@ -8,9 +8,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   final _widgetOptions = [
-    Text('Index 0: Home'),
-    Text('Index 1: Camera'),
-    Text('Index 2: Settings'),
+    Center(
+      child: Text('Index 0: Home'),
+    ),
+    CameraPage(),
+    Center(
+      child: Text('Index 2: Settings'),
+    ),
   ];
 
   @override
@@ -20,22 +24,15 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.green,
         title: Text("Home page"),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Center(
-            child: _widgetOptions.elementAt(_selectedIndex),
-          ),
-        ],
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
-         BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
-         BottomNavigationBarItem(icon: Icon(Icons.photo_camera), title: Text('Camera')),
-         BottomNavigationBarItem(icon: Icon(Icons.settings), title: Text('Settings')),
-       ],
-       currentIndex: _selectedIndex,
-       onTap: _onItemTapped,
+          BottomNavigationBarItem(icon: Icon(Icons.collections), title: Text('My Pictures')),
+          BottomNavigationBarItem(icon: Icon(Icons.photo_camera), title: Text('Camera')),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), title: Text('Settings')),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
       // TODO: finish implementing
     );
@@ -46,57 +43,36 @@ class _HomePageState extends State<HomePage> {
       _selectedIndex = index;
     });
   }
-
 }
 
-// import 'package:flutter/material.dart';
+class CameraPage extends StatefulWidget {
+  @override
+  _CameraPageState createState() => _CameraPageState();
+}
 
-// class HomePage extends StatelessWidget {
-//   int _selectedIndex = 1;
-//   final _widgetOptions = [
-//     Text('Index 0: Home'),
-//     Text('Index 1: Business'),
-//     Text('Index 2: School'),
-//   ];
-
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Colors.green,
-//         title: Text("Home page"),
-//       ),
-//       body: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: <Widget>[
-//           Center(
-//             child: Text(
-//               "Camera goes here",
-//               style: TextStyle(
-//                 fontSize: 50
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//       bottomNavigationBar: BottomNavigationBar(
-//         items: <BottomNavigationBarItem>[
-//          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
-//          BottomNavigationBarItem(icon: Icon(Icons.business), title: Text('Business')),
-//          BottomNavigationBarItem(icon: Icon(Icons.school), title: Text('School')),
-//        ],
-//        currentIndex: _selectedIndex,
-//        onTap: _onItemTapped,
-//       ),
-//       // TODO: finish implementing
-//     );
-//   }
-
-//   void _onItemTapped(int index) {
-//    setState(() {
-//      _selectedIndex = index;
-//    });
-//  }
-
-// }
+class _CameraPageState extends State<CameraPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            SizedBox(
+              width: double.infinity,
+              child: RaisedButton(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                splashColor: Colors.grey,
+                onPressed: () => print("pressed button"),
+                child: Icon(
+                  Icons.camera_alt,
+                  size: 50,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
