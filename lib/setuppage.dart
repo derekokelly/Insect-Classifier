@@ -13,7 +13,7 @@ class SetupPage extends StatefulWidget {
 class _SetupPageState extends State<SetupPage> {
 
   static List<Widget> setupPages = [SetupOne(), SetupTwo()];
-  int finalPageNum = setupPages.length;
+  int finalPageNum = setupPages.length -1;
 
   final _controller = PageController(initialPage: 0);
 
