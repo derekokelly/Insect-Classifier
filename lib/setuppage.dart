@@ -12,9 +12,8 @@ class SetupPage extends StatefulWidget {
 
 class _SetupPageState extends State<SetupPage> {
 
-  static const int FINAL_PAGE_NUM = 1;
-
-  List<Widget> setupPages = [SetupOne(), SetupTwo()];
+  static List<Widget> setupPages = [SetupOne(), SetupTwo()];
+  int finalPageNum = setupPages.length;
 
   final _controller = PageController(initialPage: 0);
 
@@ -33,7 +32,7 @@ class _SetupPageState extends State<SetupPage> {
   Future checkPage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // TODO: check if setup process is complete
-    if (_controller.page == FINAL_PAGE_NUM) {
+    if (_controller.page == finalPageNum) {
       prefs.setBool('setupComplete', true);
       Navigator.pushReplacementNamed(context, "/home");
     } else {
