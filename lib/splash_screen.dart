@@ -11,7 +11,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () => checkSetupComplete());
+    Timer(Duration(seconds: 2), () => checkSetupComplete());
   }
 
   bool checkSetupComplete() {
