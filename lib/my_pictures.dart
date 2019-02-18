@@ -16,16 +16,13 @@ class MyPictures extends StatelessWidget {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: 180.0,
-                child: Stack(
-                  children: <Widget>[
-                    // Positioned.fill(
-                    //   child: Image.file(file),
-                    // ),
-                    Image.file(photos[index]),
-                  ],
-                ),
-              ),
+                  height: 200.0,
+                  child: Image.file(
+                    photos[index],
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
+                  )),
               ButtonTheme.bar(
                 child: ButtonBar(
                   alignment: MainAxisAlignment.spaceBetween,
