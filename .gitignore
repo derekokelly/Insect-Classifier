@@ -9,7 +9,6 @@
 .buildlog/
 .history
 .svn/
-test/
 
 # IntelliJ related
 *.iml
@@ -37,7 +36,6 @@ build/
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
-android/
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
@@ -64,7 +62,6 @@ android/
 **/ios/Flutter/flutter_assets/
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
-ios/
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3
@@ -72,3 +69,6 @@ ios/
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+
+camera_tab_old.dart
