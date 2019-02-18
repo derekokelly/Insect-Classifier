@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
-import 'package:insect_classifier/main.dart';
+import 'camera_tab.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,7 +10,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   final _widgetOptions = [
     Center(
-      child: Text('Index 0: Home'),
+      child: Text('Index 0: My Pictures'),
     ),
     CameraPage(),
     Center(
@@ -55,87 +54,3 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class CameraPage extends StatefulWidget {
-  @override
-  _CameraPageState createState() => _CameraPageState();
-}
-
-class _CameraPageState extends State<CameraPage> {
-  CameraController cameraController;
-
-  @override
-  void initState() {
-    super.initState();
-    cameraController = CameraController(cameras[0], ResolutionPreset.medium);
-    cameraController.initialize().then((_) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {});
-    });
-  }
-
-  @override
-  void dispose() {
-    cameraController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (!cameraController.value.isInitialized) {
-      return Stack(
-        children: <Widget>[
-          Container(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              SizedBox(
-                width: double.infinity,
-                child: RaisedButton(
-                  padding: EdgeInsets.symmetric(vertical: 35),
-                  splashColor: Colors.grey,
-                  onPressed: () => print("pressed button"),
-                  child: Icon(
-                    Icons.camera_alt,
-                    size: 50,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      );
-    } else {
-      return Stack(
-        children: <Widget>[
-          Container(
-            child: AspectRatio(
-              aspectRatio: cameraController.value.aspectRatio,
-              child: CameraPreview(
-                cameraController,
-              ),
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              SizedBox(
-                width: double.infinity,
-                child: RaisedButton(
-                  padding: EdgeInsets.symmetric(vertical: 35),
-                  splashColor: Colors.grey,
-                  onPressed: () => print("pressed button"),
-                  child: Icon(
-                    Icons.camera_alt,
-                    size: 50,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      );
-    }
-  }
-}
