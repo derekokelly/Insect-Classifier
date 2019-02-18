@@ -20,6 +20,10 @@ dependencies:
   camera:
   path_provider:
   image_picker:
+  image:
+  image_picker_saver:
+  simple_permissions:
+  image_crop:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
