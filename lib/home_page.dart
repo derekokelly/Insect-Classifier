@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'camera_tab.dart';
+import 'my_pictures.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,9 +10,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   final _widgetOptions = [
-    Center(
-      child: Text('Index 0: My Pictures'),
-    ),
+    MyPictures(),
     CameraPage(),
     Center(
       child: Text('Index 2: Settings'),
