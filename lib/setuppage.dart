@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_permissions/simple_permissions.dart';
 
 class SetupPage extends StatefulWidget {
   SetupPage({Key key, this.title}) : super(key: key);
@@ -113,7 +114,27 @@ class SetupOne extends StatelessWidget {
   }
 }
 
-class SetupTwo extends StatelessWidget {
+class SetupTwo extends StatefulWidget {
+  @override
+  _SetupTwoState createState() => _SetupTwoState();
+}
+
+class _SetupTwoState extends State<SetupTwo> {
+
+  List perms = [Permission.ReadExternalStorage, Permission.Camera, Permission.WriteExternalStorage];
+
+  @override
+  void initState() {
+    super.initState();
+    requestPermission(perms);
+  }
+
+  requestPermission(List perms) async {
+    for (int i = 0; i < perms.length; i++) {
+      final res = await SimplePermissions.requestPermission(perms[i]);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
