@@ -16,12 +16,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  shared_preferences:
-  camera:
-  path_provider:
-  image_picker:
-  image:
-  image_picker_saver:
+  shared_preferences: 0.4.3
+  camera: 0.2.9+1
+  path_provider: 0.4.1
+  image_picker: 0.4.12+1
   simple_permissions:
   image_crop:
 
