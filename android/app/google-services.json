@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "636219446861",
+    "firebase_url": "https://insectclassifier.firebaseio.com",
+    "project_id": "insectclassifier",
+    "storage_bucket": "insectclassifier.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636219446861:android:85316aea7edaafd1",
+        "android_client_info": {
+          "package_name": "com.example.insectclassifier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636219446861-o58pg2tn4fhlo3fvkveqbj1r1p27gv80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhci5lBhHihwSCwbowfaL_g0gC5g5ORIg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

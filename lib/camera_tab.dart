@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:simple_permissions/simple_permissions.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class CameraPage extends StatefulWidget {
   @override
@@ -23,14 +24,23 @@ class _CameraPageState extends State<CameraPage> {
 
     if (res == PermissionStatus.authorized) {
       var image = await ImagePicker.pickImage(source: ImageSource.camera);
-      final String path = "/storage/emulated/0/Pictures/Insect Classifier";
-      await Directory(path).create(recursive: true);
-      final File newImage = await image.copy('$path/${timestamp()}.jpg');
+      var imageName = image.path.split("/");
 
-      if (newImage != null) {
+      if (image != null) {
         setState(() {
-        _image = newImage;
+        _image = image;
         });
+
+        var metadata = {
+          'insect': 'spider',
+        };
+
+        final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(imageName.last);
+        final StorageUploadTask task = firebaseStorageRef.putFile(image, StorageMetadata(customMetadata: metadata));
+
+//        firebaseStorageRef.updateMetadata(StorageMetadata(customMetadata: metadata)).then((metadata) {
+//          print('success');
+//        });
       }
     }
   }
@@ -40,7 +50,7 @@ class _CameraPageState extends State<CameraPage> {
 
     if (image != null) {
       setState(() {
-      _image = image; 
+      _image = image;
       });
     }
   }
