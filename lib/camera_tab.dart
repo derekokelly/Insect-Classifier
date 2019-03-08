@@ -5,14 +5,17 @@ import 'package:simple_permissions/simple_permissions.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class CameraPage extends StatefulWidget {
+  static List uploads = [];
   @override
   _CameraPageState createState() => _CameraPageState();
 }
 
 class _CameraPageState extends State<CameraPage> {
   File _image;
+  String _downloadUrl;
 
-  String timestamp() => DateTime.now().millisecondsSinceEpoch.toString();
+  StorageReference firebaseStorageRef;
+  StorageUploadTask task;
 
   Future getImageFromCamera() async {
 
@@ -35,14 +38,30 @@ class _CameraPageState extends State<CameraPage> {
           'insect': 'spider',
         };
 
-        final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(imageName.last);
-        final StorageUploadTask task = firebaseStorageRef.putFile(image, StorageMetadata(customMetadata: metadata));
+//        firebaseStorageRef = FirebaseStorage.instance.ref().child("images/" + imageName.last);
+//        task = firebaseStorageRef.putFile(image, StorageMetadata(customMetadata: metadata));
+//        Future future = (await task.onComplete).ref.getDownloadURL();
+//        _downloadUrl = future.toString();
+//        CameraPage.uploads.add(_downloadUrl);
+//        print(getImageUris());
 
-//        firebaseStorageRef.updateMetadata(StorageMetadata(customMetadata: metadata)).then((metadata) {
-//          print('success');
-//        });
+        firebaseStorageRef = FirebaseStorage.instance.ref().child("images/" + imageName.last);
+        task = firebaseStorageRef.putFile(image, StorageMetadata(customMetadata: metadata));
+
+        task.onComplete.then((var test) async {
+          _downloadUrl = await firebaseStorageRef.getDownloadURL();
+          print("DOWNLOAD URL " + _downloadUrl);
+          CameraPage.uploads.add(_downloadUrl);
+          print(getImageUris());
+        });
+
+
       }
     }
+  }
+
+  static List getImageUris() {
+    return CameraPage.uploads;
   }
 
   Future getImageFromGallery() async {
@@ -76,3 +95,4 @@ class _CameraPageState extends State<CameraPage> {
     );
   }
 }
+
