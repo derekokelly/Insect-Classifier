@@ -16,7 +16,7 @@ class _MyPicturesState extends State<MyPictures> {
   final CollectionReference collectionReference =
       Firestore.instance.collection("images");
 
-  // TODO: GET METADATA FROM URL
+  // TODO: PUT NEW PHOTOS AT TOP
 
   Widget _buildListItem(context, index) {
     return Card(

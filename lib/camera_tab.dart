@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 
 class CameraPage extends StatefulWidget {
   @override
@@ -15,6 +16,8 @@ class CameraPage extends StatefulWidget {
 class _CameraPageState extends State<CameraPage> {
   File _image;
   String _downloadUrl;
+  String _mlResult = 'No image taken... yet!';
+  String _label = '';
 
   StorageReference firebaseStorageRef;
   StorageUploadTask task;
@@ -30,16 +33,21 @@ class _CameraPageState extends State<CameraPage> {
 
     if (res == PermissionStatus.authorized) {
       var image = await ImagePicker.pickImage(source: ImageSource.camera);
-      uploadImage(image);
+      classify(image).whenComplete(() {
+        uploadImage(image, _label);
+      });
     }
   }
 
   Future getImageFromGallery() async {
     PermissionStatus res = await SimplePermissions.requestPermission(
         Permission.ReadExternalStorage);
+    print(res);
 
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    uploadImage(image);
+    classify(image).whenComplete(() {
+      uploadImage(image, _label);
+    });
 
     if (image != null) {
       setState(() {
@@ -48,7 +56,7 @@ class _CameraPageState extends State<CameraPage> {
     }
   }
 
-  void uploadImage(image) {
+  void uploadImage(image, String label) {
     var imageName = timestamp() + ".jpg";
 
     if (image != null) {
@@ -57,7 +65,7 @@ class _CameraPageState extends State<CameraPage> {
       });
 
       var metadata = {
-        'insect': 'Spider',
+        'insect': label,
       };
 
       Fluttertoast.showToast(
@@ -78,7 +86,7 @@ class _CameraPageState extends State<CameraPage> {
             Firestore.instance.document("images/$imageName");
         Map<String, String> data = <String, String>{
           "downloadUrl": _downloadUrl,
-          'insect': 'Spider'
+          'insect': label
         };
 
         documentReference.setData(data).whenComplete(() {
@@ -91,6 +99,37 @@ class _CameraPageState extends State<CameraPage> {
         }).catchError((e) => print(e));
 
         print("DOWNLOAD URL " + _downloadUrl);
+      });
+    }
+  }
+
+  Future classify(image) async {
+    String result = '';
+
+    final FirebaseVisionImage visionImage = FirebaseVisionImage.fromFile(image);
+    final LabelDetector labelDetector = FirebaseVision.instance.labelDetector();
+
+    final List<Label> labels = await labelDetector.detectInImage(visionImage);
+    result += 'Detected ${labels.length} labels';
+
+    double prevConfidence = 0;
+    double confidence = 0;
+    String mlLabel = '';
+    for (Label label in labels) {
+      confidence = label.confidence;
+
+      if (label.confidence > prevConfidence) {
+        mlLabel = label.label;
+        result =
+            '\nLabel: $mlLabel, confidence=${confidence.toStringAsFixed(3)}';
+        prevConfidence = label.confidence;
+      }
+    }
+    if (result.length > 0) {
+      setState(() {
+        this._mlResult = result;
+        _label = mlLabel;
+        print("ML RESULT " + _label);
       });
     }
   }
@@ -111,7 +150,22 @@ class _CameraPageState extends State<CameraPage> {
             ),
           ],
         ),
-        _image == null ? Placeholder() : Image.file(_image),
+        _image == null
+            ? Placeholder(
+                fallbackHeight: 300.0,
+              )
+            : Image.file(
+                _image,
+                height: 400.0,
+              ),
+        Divider(),
+        Text('Result: '),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Text(
+            this._mlResult,
+          ),
+        ),
       ],
     );
   }
