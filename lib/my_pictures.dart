@@ -14,7 +14,7 @@ class _MyPicturesState extends State<MyPictures> {
   }
 
   final CollectionReference collectionReference =
-      Firestore.instance.collection("images/");
+      Firestore.instance.collection("images");
 
   // TODO: GET METADATA FROM URL
 
@@ -26,7 +26,9 @@ class _MyPicturesState extends State<MyPictures> {
           SizedBox(
             height: 200.0,
             child: CachedNetworkImage(
-              placeholder: LinearProgressIndicator(),
+              placeholder: Center(
+                child: CircularProgressIndicator(),
+              ),
               imageUrl: index['downloadUrl'],
               fit: BoxFit.cover,
               width: double.infinity,
@@ -37,7 +39,7 @@ class _MyPicturesState extends State<MyPictures> {
             child: ButtonBar(
               alignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("Spider"),
+                Text(index['insect']),
                 FlatButton(
                   child: Text("More info"),
                   onPressed: () {},
@@ -53,7 +55,7 @@ class _MyPicturesState extends State<MyPictures> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: Firestore.instance.collection("images").snapshots(),
+      stream: collectionReference.snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return Text("Loading...");
         return ListView.builder(

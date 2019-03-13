@@ -57,7 +57,7 @@ class _CameraPageState extends State<CameraPage> {
       });
 
       var metadata = {
-        'insect': 'spider',
+        'insect': 'Spider',
       };
 
       Fluttertoast.showToast(
@@ -78,6 +78,7 @@ class _CameraPageState extends State<CameraPage> {
             Firestore.instance.document("images/$imageName");
         Map<String, String> data = <String, String>{
           "downloadUrl": _downloadUrl,
+          'insect': 'Spider'
         };
 
         documentReference.setData(data).whenComplete(() {
