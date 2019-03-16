@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyPictures extends StatefulWidget {
   @override
@@ -41,8 +42,12 @@ class _MyPicturesState extends State<MyPictures> {
               children: <Widget>[
                 Text(index['insect']),
                 FlatButton(
+//                  child: GestureDetector(
+//                    child: Text("More info"),
+//                    onTap: index['insect'],
+//                  ),
                   child: Text("More info"),
-                  onPressed: () {},
+                  onPressed: () => _launchUrl(index['insect']),
                 ),
               ],
             ),
@@ -50,6 +55,15 @@ class _MyPicturesState extends State<MyPictures> {
         ],
       ),
     );
+  }
+
+  _launchUrl(String query) async {
+    String url = "https://www.google.com/search?q=$query";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
