@@ -8,7 +8,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -56,9 +55,11 @@ class _SplashScreenState extends State<SplashScreen> {
                           size: 50,
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Text(
-                        "Insect Image Classifier",
+                        "Insectify",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -68,14 +69,26 @@ class _SplashScreenState extends State<SplashScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 50,),
+                SizedBox(
+                  height: 50,
+                ),
                 Container(
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        // TODO: put slogan here
-                        "Slogan to go here",
+                        "The educational",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 24,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        "machine learning app",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -97,5 +110,4 @@ class _SplashScreenState extends State<SplashScreen> {
   void dispose() {
     super.dispose();
   }
-
 }

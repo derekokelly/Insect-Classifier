@@ -12,9 +12,9 @@ class _HomePageState extends State<HomePage> {
   final _widgetOptions = [
     MyPictures(),
     CameraPage(),
-    Center(
-      child: Text('Index 2: Settings'),
-    ),
+//    Center(
+//      child: Text('Index 2: Settings'),
+//    ),
   ];
 
   @override
@@ -31,8 +31,8 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.collections), title: Text('My Pictures')),
           BottomNavigationBarItem(
               icon: Icon(Icons.photo_camera), title: Text('Camera')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), title: Text('Settings')),
+//          BottomNavigationBarItem(
+//              icon: Icon(Icons.settings), title: Text('Settings')),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,

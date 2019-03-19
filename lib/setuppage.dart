@@ -12,9 +12,8 @@ class SetupPage extends StatefulWidget {
 }
 
 class _SetupPageState extends State<SetupPage> {
-
   static List<Widget> setupPages = [SetupOne(), SetupTwo()];
-  int finalPageNum = setupPages.length -1;
+  int finalPageNum = setupPages.length - 1;
 
   final _controller = PageController(initialPage: 0);
 
@@ -55,7 +54,6 @@ class _SetupPageState extends State<SetupPage> {
   void dispose() {
     super.dispose();
   }
-  
 }
 
 class FancyButton extends StatelessWidget {
@@ -91,21 +89,20 @@ class SetupOne extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "Welcome to app_name!",
+                "Welcome to Insectify!",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
                 ),
                 // style: Theme.of(context).textTheme.display1,
               ),
-              SizedBox(height: 10,),
-              Text(
-                "Some more writing to go here",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white
-                ),
+              SizedBox(
+                height: 10,
               ),
+//              Text(
+//                "Thank you for choosing this app.",
+//                style: TextStyle(fontSize: 15, color: Colors.white),
+//              ),
             ],
           ),
         ),
@@ -120,8 +117,11 @@ class SetupTwo extends StatefulWidget {
 }
 
 class _SetupTwoState extends State<SetupTwo> {
-
-  List perms = [Permission.ReadExternalStorage, Permission.Camera, Permission.WriteExternalStorage];
+  List perms = [
+    Permission.ReadExternalStorage,
+    Permission.Camera,
+    Permission.WriteExternalStorage
+  ];
 
   @override
   void initState() {
@@ -145,7 +145,7 @@ class _SetupTwoState extends State<SetupTwo> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "Ask For Permissions",
+                "Before we start...",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
