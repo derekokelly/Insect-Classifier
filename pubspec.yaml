@@ -10,7 +10,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+#  sdk: ">=2.0.0-dev.68.0 <2.0.0"
 
 dependencies:
   flutter:
@@ -22,13 +22,16 @@ dependencies:
   image_picker: 0.4.12+1
   simple_permissions:
   image_crop:
-  firebase_storage:
-  firebase_database:
-  cloud_firestore:
+  firebase_storage: 1.0.4
+  firebase_database: 1.0.5
+  cloud_firestore: 0.8.2+3
   cached_network_image:
   fluttertoast: 2.2.11
-  firebase_ml_vision:
-  url_launcher:
+  firebase_ml_vision: 0.2.1
+  url_launcher: 4.1.0+1
+  tflite:
+  image:
+  http:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -54,6 +57,8 @@ flutter:
   assets:
   - assets/leaves.jpeg
   - assets/leaves.jpg
+  - assets/optimized_graph.tflite
+  - assets/retrained_labels.txt
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 

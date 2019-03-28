@@ -58,7 +58,8 @@ class _MyPicturesState extends State<MyPictures> {
   }
 
   _launchUrl(String query) async {
-    String url = "https://www.google.com/search?q=$query";
+    String newQuery = query.split(" ")[0];
+    String url = "https://www.google.com/search?q=$newQuery";
     if (await canLaunch(url)) {
       await launch(url);
     } else {
