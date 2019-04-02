@@ -57,8 +57,6 @@ flutter:
   assets:
   - assets/leaves.jpeg
   - assets/leaves.jpg
-  - assets/optimized_graph.tflite
-  - assets/retrained_labels.txt
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 

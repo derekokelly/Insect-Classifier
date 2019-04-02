@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -8,8 +6,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image/image.dart' as img;
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -22,7 +18,6 @@ class _CameraPageState extends State<CameraPage> {
   File _image;
   String _downloadUrl;
   String _mlResult = 'No image taken... yet!';
-  String _label = '';
   String _imageName = '';
   var _response;
 
@@ -48,14 +43,6 @@ class _CameraPageState extends State<CameraPage> {
           uploadToFireStore();
         });
       });
-//      uploadToStorage(image).whenComplete(() {
-//        classify(_downloadUrl).whenComplete(() {
-//          uploadToFireStore();
-//        });
-//      });
-//      classify(image).whenComplete(() {
-//        uploadImage(image, _label);
-//      });
     }
   }
 
@@ -73,14 +60,6 @@ class _CameraPageState extends State<CameraPage> {
           uploadToFireStore();
         });
       });
-//      uploadToStorage(image).whenComplete(() {
-//        classify(_downloadUrl).whenComplete(() {
-//          uploadToFireStore();
-//        });
-//      });
-//      classify(image).whenComplete(() {
-//        uploadImage(image, _label);
-//      });
     }
   }
 
@@ -140,45 +119,13 @@ class _CameraPageState extends State<CameraPage> {
     }).catchError((e) => print(e));
   }
 
-//  Future classify(downloadUrl) async {
-//    postRequest(downloadUrl);
-//    String result = '';
-//
-//    final FirebaseVisionImage visionImage = FirebaseVisionImage.fromFile(image);
-//    final LabelDetector labelDetector = FirebaseVision.instance.labelDetector();
-//
-//    final List<Label> labels = await labelDetector.detectInImage(visionImage);
-//    result += 'Detected ${labels.length} labels';
-//
-//    double prevConfidence = 0;
-//    double confidence = 0;
-//    String mlLabel = '';
-//    for (Label label in labels) {
-//      confidence = label.confidence;
-//
-//      if (label.confidence > prevConfidence) {
-//        mlLabel = label.label;
-//        result =
-//        '\nLabel: $mlLabel, confidence=${confidence.toStringAsFixed(3)}';
-//        prevConfidence = label.confidence;
-//      }
-//    }
-//    if (result.length > 0) {
-//      setState(() {
-//        this._mlResult = result;
-//        _label = mlLabel;
-//        print("ML RESULT " + _label);
-//      });
-//    }
-//  }
-
   Future<http.Response> classify(downloadUrl) async {
-    var url = 'http://209.97.186.15:8000/classify';
+    var url = 'http://209.97.186.15:8080';
 
-    Map data = {'downloadUrl': downloadUrl};
+//    Map data = {'downloadUrl': downloadUrl};
 
     //encode Map to JSON
-    var body = json.encode(data);
+    var body = downloadUrl;
 
     _response = await http.post(url,
         headers: {"Content-Type": "application/json"}, body: body);
